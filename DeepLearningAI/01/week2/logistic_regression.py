@@ -6,6 +6,8 @@ from tqdm import tqdm
 sys.path.append("../..")
 from activation import *
 
+np.random.seed(1)
+
 LEARNING_RATE = 0.1
 EPOCHS = 10000
 
@@ -78,5 +80,8 @@ if __name__ == '__main__':
     print('W shape %s, B shape %s' % (str(W.shape), str(B.shape)))
 
     train(train_x.transpose(), train_y.reshape(1, -1), W, B)
+
+    print('weights %s' % W)
+    print('baises %s' % B)
 
     test(test_x.transpose(), test_y.reshape(1, -1), W, B)
