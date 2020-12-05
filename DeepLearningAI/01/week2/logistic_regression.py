@@ -53,7 +53,7 @@ def test(X, Y, W, B):
     for i in range(m):
         print('#%3d: predict: %.4f | label: %d' % (i, A[0, i], Y[0, i]))
 
-    print('acc %f' % ((y_hat == Y).sum() / m))
+    print('acc %.4f' % ((y_hat == Y).sum() / m))
 
 
 if __name__ == '__main__':

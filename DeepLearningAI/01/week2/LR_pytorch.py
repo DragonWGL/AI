@@ -51,7 +51,7 @@ X = (np.vstack((data[0:50], data[50:100])))
 Y = np.where(np.hstack((target[0:50], target[50:100])) == TARGET_LABEL, 1.0, 0.)
 print('X shape %s, Y shape %s' % (str(X.shape), str(Y.shape)))
 
-train_x, test_x, train_y, test_y = train_test_split(X, Y, test_size=0.1, random_state=1)
+train_x, test_x, train_y, test_y = train_test_split(X, Y, test_size=0.1)
 
 model = LR(X.shape[1])
 optimizer = SGD(model.parameters(), lr=LEARNING_RATE)
@@ -88,4 +88,4 @@ m = batch_test_x.shape[0]
 for i in range(m):
     print('#%3d: predict: %.4f | label: %d' % (i, A[i, 0], batch_test_y[i, 0]))
 
-print('acc %f' % ((y_hat == batch_test_y).sum() / m))
+print('acc %.4f' % ((y_hat == batch_test_y).sum() / m))
