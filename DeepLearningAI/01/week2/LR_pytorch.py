@@ -73,6 +73,9 @@ for epoch in tqdm(range(1, EPOCHS + 1)):
     # 更新参数
     optimizer.step()
 
+    if epoch % 1000 == 0:
+        print('epoch %5d | loss %.4f' % (epoch, loss.item()))
+
 print('weights %s' % model.linear.weight)
 print('biases %s' % model.linear.bias)
 
@@ -83,6 +86,6 @@ y_hat = np.where(A > 0.5, 1, 0)
 
 m = batch_test_x.shape[0]
 for i in range(m):
-    print('#%3d: predict: %f | label: %d' % (i, A[i, 0], batch_test_y[i, 0]))
+    print('#%3d: predict: %.4f | label: %d' % (i, A[i, 0], batch_test_y[i, 0]))
 
 print('acc %f' % ((y_hat == batch_test_y).sum() / m))

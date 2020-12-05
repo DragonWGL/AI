@@ -24,7 +24,7 @@ def train(X, Y, W, B):
         # J = -(Y * log(Yhat) + (1-Y) * log(1 - Yhat)) / m
         J = -(np.dot(Y, np.log(A).transpose()) + np.dot(1 - Y, np.log(1 - A).transpose())) / m
         if epoch % 1000 == 0:
-            print('epoch %5d | loss %f' % (epoch, J))
+            print('epoch %5d | loss %.4f' % (epoch, J))
 
         # 反向传播
         # dJ/dA = -Y / A + (1 - Y) / (1 - A)
@@ -51,7 +51,7 @@ def test(X, Y, W, B):
 
     m = X.shape[1]
     for i in range(m):
-        print('#%3d: predict: %f | label: %d' % (i, A[0, i], Y[0, i]))
+        print('#%3d: predict: %.4f | label: %d' % (i, A[0, i], Y[0, i]))
 
     print('acc %f' % ((y_hat == Y).sum() / m))
 
