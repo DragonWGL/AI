@@ -6,6 +6,8 @@ from tqdm import tqdm
 sys.path.append("../..")
 from activation import *
 
+np.random.seed(1)
+
 LEARNING_RATE = 0.001
 EPOCHS = 10000
 
@@ -21,7 +23,7 @@ def train(X, Y, weights, biases, activations):
         # 计算成本函数
         J = -(np.dot(Y, np.log(A_list[-1]).transpose()) + np.dot(1 - Y, np.log(1 - A_list[-1]).transpose())) / m
         if epoch % 1000 == 0:
-            print('epoch %5d | loss %f' % (epoch, J))
+            print('epoch %5d | loss %.4f' % (epoch, J))
 
         # 反向传播
         dZ2 = A_list[1] - Y  # dJ/dZ2 = dJ/dA2 * dA2/dZ2
@@ -59,9 +61,9 @@ def test(X, Y, weights, baises, activations):
 
     m = X.shape[1]
     for i in range(m):
-        print('#%3d: predict: %f | label: %d' % (i, A[0, i], Y[0, i]))
+        print('#%3d: predict: %.4f | label: %d' % (i, A[0, i], Y[0, i]))
 
-    print('acc %f' % ((y_hat == Y).sum() / m))
+    print('acc %.4f' % ((y_hat == Y).sum() / m))
 
 
 if __name__ == '__main__':
@@ -98,5 +100,10 @@ if __name__ == '__main__':
     assert len(weights) == len(biases) == len(activations)
 
     train(train_x.transpose(), train_y.reshape(1, -1), weights, biases, activations)
+
+    print('W1 %s' % W1)
+    print('B1 %s' % B1)
+    print('W2 %s' % W2)
+    print('B2 %s' % B2)
 
     test(test_x.transpose(), test_y.reshape(1, -1), weights, biases, activations)
