@@ -6,6 +6,8 @@ from tqdm import tqdm
 sys.path.append("../..")
 from activation import *
 
+np.random.seed(1)
+
 LEARNING_RATE = 0.001
 EPOCHS = 10000
 
@@ -92,20 +94,24 @@ if __name__ == '__main__':
 
     # 初始化网络
     # 隐藏节点列表
-    hidden_dims = [10, 10, 6, 1]
+    HIDDEN_DIMS = [10, 10, 6, 1]
     # 激活函数列表
-    activations = ['relu', 'lrelu', 'tanh', 'sigmoid']
+    ACTIVATIONS = ['relu', 'lrelu', 'tanh', 'sigmoid']
 
-    assert len(hidden_dims) == len(activations)
+    assert len(HIDDEN_DIMS) == len(ACTIVATIONS)
 
     # 初始化weight和bias
     weights = []
     biases = []
-    for i in range(len(hidden_dims)):
-        weights.append(np.random.randn(hidden_dims[i], X.shape[1] if len(weights) == 0 else weights[-1].shape[0]))
-        biases.append(np.zeros((hidden_dims[i], 1)))
+    for i in range(len(HIDDEN_DIMS)):
+        weights.append(np.random.randn(HIDDEN_DIMS[i], X.shape[1] if len(weights) == 0 else weights[-1].shape[0]))
+        biases.append(np.zeros((HIDDEN_DIMS[i], 1)))
         print('weight %d shape %s, bias %d shape %s' % (i + 1, str(weights[i].shape), i + 1, str(biases[i].shape)))
 
-    train(train_x.transpose(), train_y.reshape(1, -1), weights, biases, activations)
+    train(train_x.transpose(), train_y.reshape(1, -1), weights, biases, ACTIVATIONS)
 
-    test(test_x.transpose(), test_y.reshape(1, -1), weights, biases, activations)
+    for i in range(len(weights)):
+        print('W%d %s' % (i + 1, weights[i]))
+        print('B%d %s' % (i + 1, biases[i]))
+
+    test(test_x.transpose(), test_y.reshape(1, -1), weights, biases, ACTIVATIONS)

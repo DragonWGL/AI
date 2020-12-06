@@ -32,9 +32,7 @@ def relu(Z):
 
 
 def leaky_relu(Z, negative_slope=0.01):
-    negative_slopes = np.empty(Z.shape)
-    negative_slopes.fill(negative_slope)
-    return np.maximum(Z, negative_slopes)
+    return np.maximum(Z, Z * negative_slope)
 
 
 def tanh(Z):
