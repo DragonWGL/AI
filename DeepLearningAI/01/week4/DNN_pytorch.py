@@ -35,9 +35,9 @@ class DNN(torch.nn.Module):
 
             sequential.add_module('fc%d' % (i + 1), fc)
             if activations[i] == 'relu':
-                sequential.add_module('activation%d' % (i + 1), torch.nn.ReLU(inplace=True))
+                sequential.add_module('activation%d' % (i + 1), torch.nn.ReLU())
             elif activations[i] == 'lrelu':
-                sequential.add_module('activation%d' % (i + 1), torch.nn.LeakyReLU(inplace=True))
+                sequential.add_module('activation%d' % (i + 1), torch.nn.LeakyReLU())
             elif activations[i] == 'tanh':
                 sequential.add_module('activation%d' % (i + 1), torch.nn.Tanh())
             elif activations[i] == 'sigmoid':
