@@ -94,7 +94,7 @@ if __name__ == '__main__':
 
     # 初始化网络
     # 隐藏节点列表
-    HIDDEN_DIMS = [10, 10, 6, 1]
+    HIDDEN_DIMS = [50, 50, 30, 1]
     # 激活函数列表
     ACTIVATIONS = ['relu', 'lrelu', 'tanh', 'sigmoid']
 
