@@ -27,14 +27,14 @@ def train(X, Y, weights, biases, activations):
 
         # 反向传播
         dZ2 = A_list[1] - Y  # dJ/dZ2 = dJ/dA2 * dA2/dZ2
-        dW2 = np.dot(dZ2, A_list[0].transpose()) / m  # dJ/dW2 = dJ/dZ2 * dZ2/dW2
-        dB2 = np.sum(dZ2, axis=1, keepdims=True) / m  # dJ/dB2 = dJ/dZ2 * dZ2/dB2
+        dW2 = np.dot(dZ2, A_list[0].transpose()) / m  # ∑(dJ/dW2) / m = ∑(dJ/dZ2 * dZ2/dW2) / m
+        dB2 = np.sum(dZ2, axis=1, keepdims=True) / m  # ∑(dJ/dB2) / m = ∑(dJ/dZ2 * dZ2/dB2) / m
         # dZ2/dA1 = W2
-        # dA1/dZ1 = drelu(Z1)/dZ1 = np.where(A1 > 0, 1, 0)
+        # dA1/dZ1 = drelu(Z1)/dZ1 = np.where(Z1 > 0, 1, 0)
         dZ1 = np.multiply(np.dot(weights[1].transpose(), dZ2),
                           np.where(Z_list[0] > 0, 1, 0))  # dJ/dZ1 = dJ/dZ2 * dZ2/dA1 * dA1/dZ1
-        dW1 = np.dot(dZ1, X.transpose()) / m  # dJ/dW1 = dJ/dZ1 * dZ1/dW1
-        dB1 = np.sum(dZ1, axis=1, keepdims=True) / m  # dJ/dB1 = dJ/dZ1 * dZ1/dB1
+        dW1 = np.dot(dZ1, X.transpose()) / m  # ∑(dJ/dW1) / m = ∑(dJ/dZ1 * dZ1/dW1) / m
+        dB1 = np.sum(dZ1, axis=1, keepdims=True) / m  # ∑(dJ/dB1) / m = ∑(dJ/dZ1 * dZ1/dB1) / m
 
         # 更新参数
         weights[1] -= LEARNING_RATE * dW2
@@ -57,13 +57,13 @@ def forward(X, weights, biases, activations):
 def test(X, Y, weights, baises, activations):
     _, A_list = forward(X, weights, baises, activations)
     A = A_list[-1]
-    y_hat = np.where(A > 0.5, 1, 0)
+    Yhat = np.where(A > 0.5, 1, 0)
 
     m = X.shape[1]
     for i in range(m):
         print('#%3d: predict: %.4f | label: %d' % (i, A[0, i], Y[0, i]))
 
-    print('acc %.4f' % ((y_hat == Y).sum() / m))
+    print('acc %.4f' % ((Yhat == Y).sum() / m))
 
 
 if __name__ == '__main__':

@@ -95,10 +95,10 @@ print('B2 %s' % model.fc2.bias)
 batch_test_x, batch_test_y = torch.from_numpy(test_x), test_y.reshape(-1, 1)
 model.eval()
 A = model(batch_test_x)
-y_hat = np.where(A > 0.5, 1, 0)
+Yhat = np.where(A > 0.5, 1, 0)
 
 m = batch_test_x.shape[0]
 for i in range(m):
     print('#%3d: predict: %.4f | label: %d' % (i, A[i, 0], batch_test_y[i, 0]))
 
-print('acc %.4f' % ((y_hat == batch_test_y).sum() / m))
+print('acc %.4f' % ((Yhat == batch_test_y).sum() / m))
