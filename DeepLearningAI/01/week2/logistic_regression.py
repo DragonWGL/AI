@@ -21,7 +21,7 @@ def train(X, Y, W, B):
         A = forward(X, W, B)
 
         # 计算成本函数
-        # J = -(Y * log(Yhat) + (1-Y) * log(1 - Yhat)) / m
+        # J = -∑(Y * log(Yhat) + (1-Y) * log(1 - Yhat)) / m
         J = -(np.dot(Y, np.log(A).transpose()) + np.dot(1 - Y, np.log(1 - A).transpose())) / m
         if epoch % 1000 == 0:
             print('epoch %5d | loss %.4f' % (epoch, J))
@@ -30,8 +30,8 @@ def train(X, Y, W, B):
         # dJ/dA = -Y / A + (1 - Y) / (1 - A)
         # dA/dZ = dsigmod(Z)/dZ = A * (1 - A)
         dZ = A - Y  # dJ/dZ = dJ/dA * dA/dZ
-        dW = np.dot(X, dZ.transpose()) / m  # dJ/dW = dJ/dZ * dZ/dW
-        dB = np.sum(dZ, axis=1, keepdims=True) / m  # dJ/dB = dJ/dZ * dZ/dB
+        dW = np.dot(X, dZ.transpose()) / m  # ∑(dJ/dW) / m = ∑(dJ/dZ * dZ/dW) / m
+        dB = np.sum(dZ, axis=1, keepdims=True) / m  # ∑(dJ/dB) / m = ∑(dJ/dZ * dZ/dB) / m
 
         # 更新参数
         W -= LEARNING_RATE * dW
@@ -47,13 +47,13 @@ def forward(X, W, B):
 
 def test(X, Y, W, B):
     A = forward(X, W, B)
-    y_hat = np.where(A > 0.5, 1, 0)
+    Yhat = np.where(A > 0.5, 1, 0)
 
     m = X.shape[1]
     for i in range(m):
         print('#%3d: predict: %.4f | label: %d' % (i, A[0, i], Y[0, i]))
 
-    print('acc %.4f' % ((y_hat == Y).sum() / m))
+    print('acc %.4f' % ((Yhat == Y).sum() / m))
 
 
 if __name__ == '__main__':
