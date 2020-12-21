@@ -65,13 +65,13 @@ def backward(X, weights, biases, activations, Z_list, A_list, dYhat):
 def test(X, Y, W_list, B_list, G_list):
     _, A_list = forward(X, W_list, B_list, G_list)
     A = A_list[-1]
-    y_hat = np.where(A > 0.5, 1, 0)
+    Yhat = np.where(A > 0.5, 1, 0)
 
     m = X.shape[1]
     for i in range(m):
         print('#%3d: predict: %f | label: %d' % (i, A[0, i], Y[0, i]))
 
-    print('acc %f' % ((y_hat == Y).sum() / m))
+    print('acc %f' % ((Yhat == Y).sum() / m))
 
 
 if __name__ == '__main__':
