@@ -26,7 +26,7 @@ def train(X, Y, weights, biases, activations):
             print('epoch %5d | loss %f' % (epoch, J))
 
         # 反向传播
-        dYhat = -Y / A_list[-1] + (1 - Y) / (1 - A_list[-1])  # dJ/dYhat = -Y / A + (1 - Y) / (1 - A)
+        dYhat = -Y / A_list[-1] + (1 - Y) / (1 - A_list[-1])  # dJ/dYhat = -Y / Yhat + (1 - Y) / (1 - Yhat)
         backward(X, weights, biases, activations, Z_list, A_list, dYhat)
 
 
