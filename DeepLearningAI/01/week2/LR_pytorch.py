@@ -58,14 +58,14 @@ optimizer = SGD(model.parameters(), lr=LEARNING_RATE)
 
 for epoch in tqdm(range(1, EPOCHS + 1)):
     # 获取数据
-    batch_x, batch_y = torch.from_numpy(train_x), torch.from_numpy(train_y).reshape(-1, 1)
+    batch_x, batch_y = torch.from_numpy(train_x), torch.from_numpy(train_y).reshape(-1)
 
     # 重置求导
     optimizer.zero_grad()
 
     # 前向传播
     A = model(batch_x)
-    loss = torch.nn.functional.binary_cross_entropy(A.squeeze(), batch_y.squeeze())
+    loss = torch.nn.functional.binary_cross_entropy(A.squeeze(), batch_y)
 
     # 后向传播
     loss.backward()

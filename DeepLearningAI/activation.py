@@ -10,6 +10,8 @@ def activation(key, Z):
         return tanh(Z)
     elif key == 'sigmoid':
         return sigmoid(Z)
+    elif key == 'softmax':
+        return softmax(Z)
     else:
         raise Exception('unsupported activation %s' % key)
 
@@ -23,6 +25,8 @@ def derivative(key, Z, A):
         return dtanh(A)
     elif key == 'sigmoid':
         return dsigmoid(A)
+    elif key == 'softmax':
+        return dsoftmax(A)
     else:
         raise Exception('unsupported derivative %s' % key)
 
@@ -43,6 +47,12 @@ def sigmoid(Z):
     return 1 / (1 + np.exp(-Z))
 
 
+def softmax(Z):
+    exp_Z = np.exp(Z)
+    sum_exp_Z = np.sum(exp_Z, axis=0, keepdims=True)
+    return exp_Z / sum_exp_Z
+
+
 def drelu(Z):
     return np.where(Z > 0, 1, 0)
 
@@ -57,3 +67,7 @@ def dtanh(A):
 
 def dsigmoid(A):
     return np.multiply(A, (1 - A))
+
+
+def dsoftmax(A):
+    return None
